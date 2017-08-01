@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>yuegou-parent</artifactId>
+        <groupId>com.wei</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>yuegou-web</artifactId>
+    <packaging>war</packaging>
+    <name>yuegou-web Maven Webapp</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.wei</groupId>
+            <artifactId>yuegou-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!--mybatis分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>yuegou-web</finalName>
+        <defaultGoal>install</defaultGoal>  <!--相当于执行 mvn install -->
+        <!--<directory>D:\testWeb\</directory>-->  <!--build目标文件的存放目录-->
+        <!--<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <outputDirectory>${basedir}/target/classes</outputDirectory>-->
+
+        <filters>
+            <filter>filters/filter-${env}.properties</filter>
+        </filters>
+
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+                <!-- 是否使用过滤器 -->
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- 编译插件-->
+            <!--<plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>    &lt;!&ndash; 源代码使用的开发版本 &ndash;&gt;
+                    <target>1.8</target>    &lt;!&ndash; 需要生成的目标class文件的编译版本 &ndash;&gt;
+                    &lt;!&ndash; 一般而言，target与source是保持一致的，但是，有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，源代码中需要没有使用低版本jdk中不支持的语法)，会存在target不同于source的情况 &ndash;&gt;
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>-->
+
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <!-- 可以把jsp、css等页面相关的打进包里，注意路径 -->
+                    <warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>yuegou</warName>
+                </configuration>
+            </plugin>
+
+            <!--<plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>bootstrap</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/common/page/**</include>
+                                <include>**/controller/**</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/business/product/dao/**</exclude>
+                            </excludes>
+                            <classifier>jdk17</classifier>
+                            <outputDirectory>D:/testWeb/</outputDirectory>
+                        </configuration>
+
+                    </execution>
+                </executions>
+            </plugin>-->
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+                <!-- 此处可以配置成资源文件目录，即package.environment -->
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
+</project>
