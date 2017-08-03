@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--引入config文件-->
+    <!--<properties resource="config.properties"/>-->
+
+    <!--数据库驱动jar包路径-->
+    <!--<classPathEntry location="D:\needforjava\maven\repository\mysql\mysql-connector-java\6.0.5\mysql-connector-java-6.0.5.jar"/>-->
+
+    <!--Simple-->
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+       一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
+    -->
+       <!-- <property name="autoDelimitKeywords" value="true"/>-->
+
+
+        <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+       <!-- <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>-->
+
+
+        <!--插件配置-->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+        </plugin>
+
+        <!--数据库连接配置-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.104.59.21:3306/wp?characterEncoding=utf8"
+                        userId="wp"
+                        password="wp">
+        </jdbcConnection>
+
+        <!--model生成路径-->
+        <javaModelGenerator targetPackage="com.wei.model" targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
+
+        <!--xml生成路径-->
+        <sqlMapGenerator targetPackage="com.wei.mapper"  targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
+
+        <!--mapper生成路径-->
+        <!--<javaClientGenerator targetPackage="com.wei.dao" targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java" type="XMLMAPPER" />-->
+
+        <table tableName="common_file" mapperName="CommonFileMapper"/>
+    </context>
+</generatorConfiguration>
