@@ -55,13 +55,19 @@
     </bean>
 
     <!-- 自动注册mybatis mapper bean -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.wei.model"></property>
     </bean>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>-->
+
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.wei.dao,com.isea533.mybatis.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+
 
     <!--<mvc:view-controller path="/admin" view-name="forward:/admin/index"/>-->
 
