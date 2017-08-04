@@ -1,5 +1,7 @@
 package com.wei.service.commons;
 
+import com.wei.model.commons.CommonFile;
+
 /**
  * Description ${DESC}
  * Author ed
@@ -8,4 +10,6 @@ package com.wei.service.commons;
 public interface CommonFileService {
 
     String findPath(String id);
+
+    Integer insert(CommonFile commonFile) throws Exception;
 }

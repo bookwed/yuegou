@@ -1,10 +1,13 @@
 package com.wei.controller.user;
 
+import com.wei.model.commons.CommonFile;
+import com.wei.service.commons.CommonFileService;
 import com.wei.util.Response;
 import com.wei.util.upload.UploadDto;
 import com.wei.util.upload.UploadUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,9 @@ import java.net.URLEncoder;
 public class UserController {
 
     Logger logger = Logger.getLogger(UserController.class);
+
+    @Autowired
+    private CommonFileService commonFileService;
 
     @RequestMapping(value = "say")
     @ResponseBody
@@ -51,6 +57,17 @@ public class UserController {
     @ResponseBody
     public Response uploadFile(HttpServletRequest request,HttpServletResponse response){
         UploadDto dto = UploadUtils.uploadFile(request);
+        try {
+            //保存到数据库
+            CommonFile commonFile = new CommonFile();
+            commonFile.setRealName(dto.getFileName());
+            commonFile.setUuidName(dto.getUuidName());
+            commonFile.setFilePath(dto.getFilePath());
+            commonFile.setFileSize(dto.getFileSize());
+            commonFileService.insert(commonFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return new Response().success(dto.getFilePath());
     }
 

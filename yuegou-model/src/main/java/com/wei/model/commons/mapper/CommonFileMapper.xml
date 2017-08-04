@@ -8,7 +8,7 @@
     <result column="uuid_name" jdbcType="VARCHAR" property="uuidName" />
     <result column="file_path" jdbcType="VARCHAR" property="filePath" />
     <result column="file_size" jdbcType="BIGINT" property="fileSize" />
-    <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
+    <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime"/>
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
 

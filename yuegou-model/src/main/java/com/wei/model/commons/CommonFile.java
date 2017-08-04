@@ -1,11 +1,13 @@
 package com.wei.model.commons;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "common_file")
 public class CommonFile {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "real_name")
@@ -96,20 +98,6 @@ public class CommonFile {
     }
 
     /**
-     * @return upload_time
-     */
-    public Date getUploadTime() {
-        return uploadTime;
-    }
-
-    /**
-     * @param uploadTime
-     */
-    public void setUploadTime(Date uploadTime) {
-        this.uploadTime = uploadTime;
-    }
-
-    /**
      * @return description
      */
     public String getDescription() {
@@ -121,5 +109,13 @@ public class CommonFile {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(Date uploadTime) {
+        this.uploadTime = uploadTime;
     }
 }

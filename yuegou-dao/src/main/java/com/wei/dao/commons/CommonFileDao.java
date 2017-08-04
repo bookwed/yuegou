@@ -2,6 +2,7 @@ package com.wei.dao.commons;
 
 import com.wei.model.commons.CommonFile;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
@@ -9,7 +10,8 @@ import tk.mybatis.mapper.common.Mapper;
  * Author ed
  * Created 2017-08-03 17:25
  */
-public interface CommonFileMapper extends Mapper<CommonFile> {
+@Repository
+public interface CommonFileDao extends Mapper<CommonFile> {
     @Select("select file_path from common_file where id = #{id}")
     String selectPath(String id);
 }

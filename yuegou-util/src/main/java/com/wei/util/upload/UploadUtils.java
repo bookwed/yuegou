@@ -59,7 +59,8 @@ public class UploadUtils {
 
         File file = new File(request.getServletContext().getRealPath("/temp"));
         //1、创建一个DiskFileItemFactory工厂，当上传的文件大小超过缓冲区的大小时，就会生成一个临时文件存放到指定的临时目录当中
-        DiskFileItemFactory disk = new DiskFileItemFactory(1024*100,file);  //缓存大小默认是10k，临时文件目录
+        //DiskFileItemFactory disk = new DiskFileItemFactory(1024*100,file);  //缓存大小默认是10k，临时文件目录
+        DiskFileItemFactory disk = new DiskFileItemFactory();
         //2、创建一个文件上传解析器
         ServletFileUpload upload = new ServletFileUpload(disk);
 
