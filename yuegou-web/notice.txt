@@ -9,7 +9,11 @@
     3.1 当用户登录成功后，在服务端生成一个 token，并将其放入内存中（可放入 JVM 或 Redis 中），同时将该 token 返回到客户端。
     3.2 在客户端中将返回的 token 写入 cookie 中，并且每次请求时都将 token 随请求头一起发送到服务端。
     3.3 提供一个 AOP 切面，用于拦截所有的 Controller 方法，在切面中判断 token 的有效性。
-    3.4 当登出时，只需清理掉 cookie 中的 token 即可，服务端 token 可设置过期时间，使其自行移除。
+    3.4 当登出时，只需清理掉 cookie 中的 token 即可，服务端 token 可设置过期时间，使其自行移除。\
+4、上传
+    http://harttle.com/2016/07/04/jquery-file-upload.html
+    http://blog.csdn.net/chenchunlin526/article/details/70945877
+
 
 
 
@@ -24,3 +28,19 @@
     * 品牌功能
     * 完整的购物流程，商品的加入、编辑、删除、批量选择，收货地址的选择，下单支付
     * 会员中心（订单、收藏、足迹、收货地址、意见反馈）
+
+    #Index
+        Beauty
+        美言
+        十四行诗
+    #Reading
+        图片 + 简介
+    #About
+
+    #友家
+
+
+模板素材：
+    http://www.cssmoban.com/cssthemes/6721.shtml
+    http://www.cssmoban.com/cssthemes/6679.shtml
+    http://demo.cssmoban.com/cssthemes3/ft5_48_glow/index.html#     图片+标题+日期+简介+更多
