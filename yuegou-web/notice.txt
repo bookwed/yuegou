@@ -30,17 +30,31 @@
     * 会员中心（订单、收藏、足迹、收货地址、意见反馈）
 
     #Index
-        Beauty
-        美言
-        十四行诗
-    #Reading
+        Travel
+        read
+        ...Word
+    #
         图片 + 简介
-    #About
+        十四行诗
+    #Music
+        图片 + 简介
+    #Movie
+        图片 + 简介
+    #tour
 
+    #share
+        anything:movie、music、article
+
+    #About
+        introduce yourself
+    #Contact
+        If you have any problem,please tell me.
+        Thanks.
     #友家
+
 
 
 模板素材：
     http://www.cssmoban.com/cssthemes/6721.shtml
-    http://www.cssmoban.com/cssthemes/6679.shtml
+    http://www.cssmoban.com/cssthemes/6679.shtml    main
     http://demo.cssmoban.com/cssthemes3/ft5_48_glow/index.html#     图片+标题+日期+简介+更多
