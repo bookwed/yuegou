@@ -36,18 +36,18 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://10.104.59.21:3306/wp?characterEncoding=utf8"
                         userId="wp"
-                        password="wp">
+                        password="227qtuqgunno">
         </jdbcConnection>
 
         <!--model生成路径-->
-        <javaModelGenerator targetPackage="com.wei.model" targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
+        <javaModelGenerator targetPackage="com.wei.model.user" targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
 
         <!--xml生成路径-->
-        <sqlMapGenerator targetPackage="com.wei.mapper"  targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
+        <sqlMapGenerator targetPackage="com.wei.model.user.mapper"  targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
 
         <!--mapper生成路径-->
-        <!--<javaClientGenerator targetPackage="com.wei.dao" targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java" type="XMLMAPPER" />-->
+        <javaClientGenerator targetPackage="com.wei.dao.user" targetProject="D:/workspace2/git/yuegou/yuegou-dao/src/main/java" type="XMLMAPPER" />
 
-        <table tableName="common_file" mapperName="CommonFileMapper"/>
+        <table tableName="user_info" mapperName="UserInfoMapper"/>
     </context>
 </generatorConfiguration>
