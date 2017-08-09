@@ -30,6 +30,8 @@ public class UserController {
     @ResponseBody
     public Response register(HttpServletRequest request,UserInfo userInfo){
         try {
+            //TODO 校验，邮箱、用户名
+
             Integer id = userInfoService.insert(userInfo);
             if(id > 0){
                 request.getSession().setAttribute("currentUser",userInfo);
@@ -59,4 +61,8 @@ public class UserController {
         return null;
     }
 
+    @RequestMapping(value = "toLogin")
+    public String toLogin(){
+        return "login";
+    }
 }

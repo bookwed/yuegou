@@ -44,6 +44,8 @@
 
     #share
         anything:movie、music、article
+        #大事记
+            8月8日21时19分，四川省阿坝州九寨沟县发生7.0级地震
 
     #About
         introduce yourself
@@ -51,6 +53,8 @@
         If you have any problem,please tell me.
         Thanks.
     #友家
+
+
 
 
 
