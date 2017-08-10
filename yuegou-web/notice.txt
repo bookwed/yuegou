@@ -62,3 +62,9 @@
     http://www.cssmoban.com/cssthemes/6721.shtml
     http://www.cssmoban.com/cssthemes/6679.shtml    main
     http://demo.cssmoban.com/cssthemes3/ft5_48_glow/index.html#     图片+标题+日期+简介+更多
+
+前端框架：
+    jUI（DWZ） http://j-ui.com/
+    jQuery ligerUI http://www.ligerui.com/
+    EasyUI http://www.jeasyui.net/
+    BUI www.builive.com
