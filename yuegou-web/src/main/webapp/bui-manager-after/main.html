@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>管理系统</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+   <link href="assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="assets/css/main-min.css" rel="stylesheet" type="text/css" />
+ </head>
+
+ <body>
+  <div class="header">
+    <div class="dl-title">
+      <a href="http://www.builive.com" title="文档库地址" target="_blank">
+        <span class="dl-title-text">后台管理系统</span>
+      </a>
+    </div>
+
+    <div class="dl-log">
+      欢迎您，<span class="dl-log-user">zhagnsan</span>
+      <a href="###" title="退出系统" class="dl-log-quit">[退出]</a>
+    </div>
+  </div>
+
+   <div class="content">
+    <div class="dl-main-nav">    
+      <ul id="J_Nav"  class="nav-list ks-clear">
+        <li class="nav-item dl-selected"><div class="nav-item-inner nav-home">首页</div></li>
+      </ul>
+    </div>
+    <ul id="J_NavContent" class="dl-tab-conten">
+
+    </ul>
+   </div>
+
+  <script type="text/javascript" src="assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="./assets/js/bui.js"></script>
+  <script type="text/javascript" src="./assets/js/config.js"></script>
+
+  <script>
+    BUI.use('common/main',function(){
+      //静态菜单
+      var config = [{       //模块菜单
+          id:'menu',        //模块编号
+          homePage : 'user',  //默认打开的主页
+          collapsed :  false,  //默认左侧菜单收缩
+          menu:[{       //二级菜单
+              text:'前台管理',
+              collapsed : false,
+              items:[     //三级菜单
+                {id:'user',text:'用户管理',href:'user/user.html',closeable : false},    //设置不能关闭标签
+                {id:'main-menu',text:'文章管理',href:'main/menu.html'}                           
+              ]
+            },{
+              text:'系统管理',
+              collapsed : false,
+              items:[
+                {id:'operation',text:'菜单管理',href:'main/operation.html'},
+                {id:'quick',text:'权限设置',href:'main/quick.html'}  
+              ]
+            }]
+          }];
+
+      //动态生成，根据权限生成
+      // $.getJSON('http://localhost:8080/menu/getMenu',function(config){
+
+          //初始化主页菜单
+          new PageUtil.MainPage({
+            modulesConfig : config
+          });
+      // });
+      
+    });
+  </script>
+ </body>
+</html>
