@@ -31,20 +31,38 @@ public class MenuController {
     @ResponseBody
     public String getMenu(){
         try {
+            /**
+             * 菜单表：
+             * create table common_menu(
+             *  id,
+             *  menu_id,
+             *  menu_text,
+             *  href,
+             *  closeable,
+             *  status 删除 禁用 启用,
+             * )
+             */
+
+
+
+            //TODO 模拟数据，以后可以从数据库读取
+            //三级菜单
             Map<String,Object> item = new HashMap<String,Object>();
-            item.put("id","code");
-            item.put("text","首页代码");
-            item.put("href","main/code.html");
+            item.put("id","user");
+            item.put("text","用户管理");
+            item.put("href","user/user.html");
+            item.put("closeable",false);    //设置不能关闭标签
 
             Map<String,Object> item2 = new HashMap<String,Object>();
             item2.put("id","main-menu");
-            item2.put("text","顶部导航");
+            item2.put("text","文章管理");
             item2.put("href","main/menu.html");
 
             List<Map<String,Object>> items = new ArrayList<Map<String, Object>>();
             items.add(item);
             items.add(item2);
 
+            //二级菜单
             Map<String,Object> menu = new HashMap<String, Object>();
             menu.put("text","前台管理");
             menu.put("items",items);
@@ -52,23 +70,31 @@ public class MenuController {
             List<Map<String,Object>> menus = new ArrayList<Map<String, Object>>();
             menus.add(menu);
 
+            /**
+             * 一级菜单表结构
+             *  menu_id
+             *  menu_collapsed
+             *  homePage
+             *  menu
+             */
             Map<String,Object> config = new HashMap<String, Object>();
             config.put("id","menu");
             config.put("collapsed",true);
             config.put("homePage","code");
             config.put("menu",menus);
 
+            //一级菜单
             List<Map<String,Object>> configs = new ArrayList<Map<String, Object>>();
             configs.add(config);
 
             ObjectMapper mapper = new ObjectMapper(); //转换器
             String json = mapper.writeValueAsString(configs);
-            System.out.println(json);
             return json;
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return null;
     }
+
 
 }

@@ -40,7 +40,7 @@
   <script>
     BUI.use('common/main',function(){
       //静态菜单
-      var config = [{       //模块菜单
+      /*var config = [{       //模块菜单
           id:'menu',        //模块编号
           homePage : 'user',  //默认打开的主页
           collapsed :  false,  //默认左侧菜单收缩
@@ -59,16 +59,16 @@
                 {id:'quick',text:'权限设置',href:'main/quick.html'}  
               ]
             }]
-          }];
+          }];*/
 
       //动态生成，根据权限生成
-      // $.getJSON('http://localhost:8080/menu/getMenu',function(config){
+      $.getJSON('http://localhost:8080/menu/getMenu',function(config){
 
           //初始化主页菜单
           new PageUtil.MainPage({
             modulesConfig : config
           });
-      // });
+      });
       
     });
   </script>
