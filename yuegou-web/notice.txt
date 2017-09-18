@@ -68,3 +68,5 @@
     jQuery ligerUI http://www.ligerui.com/
     EasyUI http://www.jeasyui.net/
     BUI www.builive.com
+
+    购物志
