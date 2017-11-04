@@ -53,7 +53,7 @@ body {
 }
 
 a {
-  color: #f54c53;
+  color: #ff7b00;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -76,9 +76,9 @@ p {
 
 h1, h2, h3, h4, h5, h6, figure {
   color: #000;
-  font-family: "Roboto", Arial, sans-serif;
+  /*font-family: "Roboto", Arial, sans-serif;*/
   font-weight: 400;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
 }
 
 ::-webkit-selection {
@@ -450,7 +450,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .gtco-cover {
-  height: 600px;
+  height: 80px;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -746,7 +746,7 @@ form label {
 #gtco-subscribe,
 #gtco-footer,
 .gtco-section {
-  padding: 5em 0;
+  padding: 2em 0;
   clear: both;
   position: relative;
 }
@@ -848,7 +848,7 @@ form label {
 }
 
 .gtco-heading {
-  margin-bottom: 5em;
+  margin-bottom: 2em;
 }
 .gtco-heading.gtco-heading-sm {
   margin-bottom: 2em;
@@ -1000,8 +1000,8 @@ form label {
 }
 #gtco-footer .copyright {
   color: #b3b3b3;
-  padding-top: 3em;
-  margin-top: 3em;
+  padding-top: 1em;
+  margin-top: 1em;
   /*border-top: 1px solid #f2f2f2;*/
 }
 @media screen and (max-width: 768px) {
@@ -1151,7 +1151,7 @@ form label {
   text-decoration: none;
 }
 .gtco-nav-toggle.active i::before, .gtco-nav-toggle.active i::after {
-  background: #444;
+  background: #gtco-nav;
 }
 .gtco-nav-toggle:hover, .gtco-nav-toggle:focus, .gtco-nav-toggle:active {
   outline: none;
