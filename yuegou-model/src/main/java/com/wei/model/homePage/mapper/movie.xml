@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wei.dao.homePage.MovieDao">
+  <resultMap id="BaseResultMap" type="com.wei.model.homePage.Movie">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="short_name" jdbcType="VARCHAR" property="shortName" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="screenwriter" jdbcType="VARCHAR" property="screenwriter" />
+    <result column="mainActor" jdbcType="VARCHAR" property="mainactor" />
+    <result column="oneword" jdbcType="VARCHAR" property="oneword" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="publishTime" jdbcType="TIMESTAMP" property="publishtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="douban" jdbcType="VARCHAR" property="douban" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="plot" jdbcType="LONGVARCHAR" property="plot" />
+    <result column="downloadAddress" jdbcType="LONGVARCHAR" property="downloadaddress" />
+  </resultMap>
+
+  <select id="top3" parameterType="String" resultMap="BaseResultMap">
+    select * from movie
+    order by createTime DESC
+    limit 3
+  </select>
+</mapper>

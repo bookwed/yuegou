@@ -133,6 +133,12 @@ public class CommonFileController {
         return new Response().success();
     }
 
+    /**
+     * 返回jsp路径，跳转到jsp页面
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "gotoUpload")
     public String gotoUploadPage(HttpServletRequest request, HttpServletResponse response){
         return "upload/upload";

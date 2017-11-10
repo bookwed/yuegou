@@ -1,0 +1,369 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title>test</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Themify Icons-->
+	<link rel="stylesheet" href="css/themify-icons.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+
+	<!--分页 -->
+	<script type="text/javascript" src="lib/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="src/kkpager.js"></script>
+	<link rel="stylesheet" type="text/css" href="src/kkpager_orange.css" />
+
+	<style type="text/css">
+		body {
+		    font-size: 14px;
+		    line-height: 1.5;
+		    color: #666;
+		    font-family: Lantinghei SC,Open Sans,Arial,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeiti,WenQuanYi Micro Hei,SimSun,sans-serif;
+		    overflow-x: hidden;
+		}
+		/* 搜索框 */
+		/* reset webkit search input browser style */
+		input {
+			outline: none;
+		}
+		input[type=search] {
+			-webkit-appearance: textfield;
+			-webkit-box-sizing: content-box;
+			font-family: inherit;
+			font-size: 100%;
+		}
+		input::-webkit-search-decoration,
+		input::-webkit-search-cancel-button {
+			display: none; /* remove the search and cancel icon */
+		}
+
+		/* search input field */
+		input[type=search] {
+			background: #ededed url(images/search-icon.png) no-repeat 9px center;
+			border: solid 1px #ccc;
+			padding: 5px 10px 5px 32px;
+			width: 55px;
+			
+			-webkit-border-radius: 10em;
+			-moz-border-radius: 10em;
+			border-radius: 10em;
+			
+			-webkit-transition: all .5s;
+			-moz-transition: all .5s;
+			transition: all .5s;
+		}
+		input[type=search]:focus {
+			width: 130px;
+			background-color: #fff;
+			border-color: #6dcff6;
+			
+			-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+			-moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+			box-shadow: 0 0 5px rgba(109,207,246,.5);
+		}
+		/*content*/
+		#breadcrumb {
+		    width: 1400px;
+		    margin: 15px 0 15px 15px;
+		    font-size: 12px;
+		    display: block;
+		    background: #f9f9f9;
+		    padding: 0 5px;
+		    color: #666;				    
+		    border-top: 1px solid #eee;
+		    height: 30px;
+		    line-height: 30px;
+		    clear: both;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		}
+		.post-grid {
+		    display: block;
+		    margin-left: 15px;
+		}
+		.post-grid .post {
+		    margin-bottom: 15px;
+		    padding-bottom: 10px;
+		    border-bottom: 1px solid #ddd;
+		}
+		.clearfix {
+		    zoom: 1;
+		}
+		.entry-thumb {
+		    display: block;
+		    float: left;
+		    position: relative;
+		    margin: 0 20px 0 0;
+		    display: block;
+		}
+		.entry-title {
+		    line-height: 18px;
+		    font-size: 14px;
+		    overflow: hidden;
+		    white-space: nowrap;
+		    -o-text-overflow: ellipsis;
+		    text-overflow: ellipsis;
+		}
+		.entry-title> a:hover{
+		    text-decoration: underline;				    
+		}
+		.entry-meta {
+		    color: #999;
+		    margin: 4px 0;
+		    font-size: 12px;
+		}
+
+		.menu {
+		    width: 100%;
+		    background: #3A3D28;
+		    height: 45px;
+		    padding: 10px 0;
+		}
+		.wrapper {
+		    position: relative;
+		    width: 1200px;
+		    margin: 0 auto;
+		    height: inherit;
+		}
+		.menu dl.menu-movie {
+		    width: 1200px;
+		    border-right: 1px solid #111;
+		}
+		.menu dl.menu-movie dt {
+		    background-position: 0 0;
+		}
+		.menu dl dt {
+		    /*background: url("http://www.chapaofan.com/res/images/bg-menu.png") no-repeat;*/
+		    width: 31px;
+		    height: 41px;
+		    float: left;
+		}
+		.menu dl dt a {
+		    width: 31px;
+		    height: 41px;
+		    display: inline-block;
+		}
+		dl>dd, ul>li {
+			list-style: none;
+		}
+		dl>dd>a {
+			color: #D0CCC8;
+			padding-left: 30px;				
+		}
+		dl>dd>a:hover{
+			color: gray;
+			text-decoration: underline;
+		}
+		/*底部*/
+		.ali_group {
+		    overflow: hidden;
+		    border-bottom: 1px dashed #CCC;
+		}
+		.ali_group a {
+		    float: left;
+		    margin: 10px 0 10px -1px;
+		    padding: 0 10px;
+		    border-left: 1px solid #EEE;
+		    color: #999;
+		    text-decoration: none;
+		}					
+		.ali_group a:hover{
+			text-decoration: underline;
+		}
+	</style>
+</head>
+	<body>
+		
+	<div class="gtco-loader"></div>
+	
+	<div id="page">
+
+	
+	<div class="page-inner">
+	<nav class="gtco-nav" role="navigation">
+		<div class="gtco-container">
+			
+			<div class="row">
+				<div class="col-sm-4 col-xs-12">
+					<div id="gtco-logo"><a href="index.html" style="color: #3A3D28;">WED</a></div>
+				</div>
+				<div class="col-xs-8 text-right menu-1">
+					<ul>
+						<li><a href="index.html" style="color: #3A3D28;"><b>首 页</b></a></li>
+						<li class="has-dropdown">
+							<a href="list.html" style="color: #3A3D28;"><b>电 影</b></a>
+							<!-- <ul class="dropdown">
+								<li><a href="#">奥斯卡</a></li>
+								<li><a href="#">豆瓣9.0</a></li>
+								<li><a href="#">纪录片</a></li>								
+							</ul> -->
+						</li>	<!-- 电影列表页-->
+						<li><a href="javascript:alert('客官稍等，马上就来。。。');" style="color: #3A3D28;"><b>电视剧</b></a></li>
+						<li><a href="javascript:alert('客官稍等，马上就来。。。');" style="color: #3A3D28;"><b>读 书</b></a></li>
+						<li><a href="javascript:alert('客官稍等，马上就来。。。');" style="color: #3A3D28;"><b>联系我</b></a></li>
+						<!--todo校验是否已经登录，登录后显示用户名 -->
+						<!-- <li class="btn-cta"><a href="#"><span>Login</span></a></li> -->
+						<!-- <li>
+							<input type="text" name="keywords" placeholder="影片/演员名称"> &nbsp; 
+							<a href="#" style="color: #3A3D28;"><b>搜索</b></a>
+						</li> -->
+						<li>						
+							<input type="search" placeholder="影片/演员名称">
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</nav>
+	
+	<header id="gtco-header" class="gtco-cover" role="banner" >
+	</header>
+	
+	<div style="width: 990px;padding-bottom: 20px;">
+		<div style="float: left;width: 1200px;overflow: hidden;display: block;">
+			<div class="menu">
+				<div class="wrapper clearfix">
+					<dl class="menu-movie">			            
+			            <dd>
+			                <a href="list.html#foo" title="动作片迅雷下载">动作</a>
+			                <a href="" title="科幻片迅雷下载">科幻</a>
+			                <a href="" title="恐怖片迅雷下载">恐怖</a>
+			                <a href="" title="喜剧片迅雷下载">喜剧</a>
+			                <a href="" title="战争片迅雷下载">战争</a>
+			                <a href="" title="悬疑片迅雷下载">悬疑</a>
+			                <a href="" title="惊悚片迅雷下载">惊悚</a>
+			                <a href="" title="灾难片迅雷下载">灾难</a>
+			                <a href="" title="奇幻片迅雷下载">奇幻</a>
+			                <a href="" title="动画片迅雷下载">动漫</a>
+			                <a href="" title="爱情片迅雷下载">爱情</a>
+			                <a href="" title="犯罪片迅雷下载">犯罪</a>
+			            </dd>
+			        </dl>
+				</div>
+			</div>
+
+
+			<div id="breadcrumb" style="zoom:1;">
+				当前位置：WED > 电影 > 纪录片
+			</div>
+			<div class="post-grid clearfix">
+				<!-- 数据展示-->
+				<!-- 第一条数据-->
+				<div id="post-97" class="post clearfix">
+					<a class="entry-thumb" href="detail.html" title="[牺牲复活者][HD-1080P-MKV][韩语中字][1.84GB][2017]">
+						<img src="http://i2.cfimg.com/509344/334fd24497fe1048.jpg" height="130" width="100" >
+					</a>
+					<h3 class="entry-title">
+						<a href="detail.html" style="color: #999;" title="[牺牲复活者][HD-1080P-MKV][韩语中字][1.84GB][2017]" target="_blank">[牺牲复活者][HD-1080P-MKV][韩语中字][1.84GB][2017]</a>
+					</h3>
+					<div class="entry-meta">
+						<span class="">最后更新：2017年10月27日</span>
+						<!-- <span>|</span>
+						<span><a href="#">2 条评论</a></span> -->
+					</div>
+					<div>
+						<p>电影改编自小说《完整的审判》，是一部奇幻惊悚电影。该片讲述的是全世界已经死去的人突然复活，去找杀害自己的人复仇的故事。其中就有一位母亲时隔七年死而复生，去找自己当检察官的儿子复仇，试图杀掉自己的儿子。...</p>
+					</div>
+				</div>
+				
+				<div id="kkpager"></div>				
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//生成分页控件  
+		kkpager.generPageHtml({
+			pno : '1',	//当前页码
+			mode : 'link', //可选，默认就是link
+			total : '10',  //总页码  
+			totalRecords : '100',  //总数据条数  
+			//链接前部  
+			hrefFormer : 'searchList',
+			//链接尾部  
+			hrefLatter : '.do',
+			//链接算法
+			getLink : function(n){
+				//这里是默认算法，算法适用于比如：
+				//hrefFormer=http://www.xx.com/news/20131212
+				//hrefLatter=.html
+				//那么首页（第1页）就是http://www.xx.com/news/20131212.html
+				//第2页就是http://www.xx.com/news/20131212_2.html
+				//第n页就是http://www.xx.com/news/20131212_n.html
+				/*if(n == 1){
+					return this.hrefFormer + this.hrefLatter;
+				}
+				return this.hrefFormer + '_' + n + this.hrefLatter;*/
+				return this.hrefFormer + this.hrefLatter + "?pageIndex="+n;
+			}
+			
+		});
+	</script>
+	
+	<footer id="gtco-footer" role="contentinfo">
+		<div class="gtco-container">
+			<div class="row copyright">
+				<div class="col-md-12" id="foo">
+					<p class="pull-left">
+						<center>
+						<small>本站部分内容为互联网抓取，资源版权归原权利人，本站仅作为个人资料收集使用，如果无意中侵犯了您的权利，请与我们联系：bookwed@163.com。如有网友通过本站下载资源，请下载后24小时内删除，勿将下载的免费资源用于商业用途，因此造成的任何责任与本站无关!</small>
+						<small class="block">&copy; 2017 看电影悦生活. All Rights Reserved.</small> 
+						<small class="block">京ICP备17026831号-1 
+							<a href="http://www.cssmoban.com/" target="_blank"></a></small>
+						</center>
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	</div>
+
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- countTo -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+	</body>
+</html>
+

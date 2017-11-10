@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test bui</title>
+	<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/dpl.css" rel="stylesheet">
+	<link href="http://g.alicdn.com/bui/bui/1.1.21/css/bs3/bui.css" rel="stylesheet">
+
+	<script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+  	<script src="http://g.alicdn.com/bui/seajs/2.3.0/sea.js"></script>
+	<script src="http://g.alicdn.com/bui/bui/1.1.21/config.js"></script>
+
+	<script src="http://g.alicdn.com/bui/bui/1.1.21/bui-min.js"></script>
+
+	
+</head>
+<body>
+	<div class="demo-content">
+    
+<!-- 简单搜索页 ================================================== -->
+    <div class="row">
+      <div class="span24 doc-content">
+
+		<!--导航 -->
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">首页</a> <span class="divider">/</span>
+          </li>
+          <li>
+            <a href="#">商家管理</a> <span class="divider">/</span>
+          </li>
+          <li class="active">价格规则列表</li>
+        </ul>
+
+		<!--查询条件-->
+        <form id="searchForm" class="form-panel" action="post" >    <!-- 表单面板-->      
+          <ul class="panel-content">
+          	<li>
+          		<span>
+	              <label>报名日期：</label><input type="text" class="calendar" /> <label>至</label> <input type="text" class="calendar" />
+	            </span>
+          	</li>
+            <li>
+              <select name="">
+                <option>一级类目</option>
+              </select>
+              <input type="text"/>
+              <button type="submit" class="button button-primary">查询>></button>
+            </li>
+          </ul>
+        </form>
+        
+        <!--列表-->
+        <div id="grid">
+        </div>
+        
+      </div>
+    </div> 
+<!-- script end -->
+  </div>
+</body>
+
+<script type="text/javascript">
+
+	BUI.use(['bui/calendar','bui/grid'],function(Calendar,Grid){
+      var datepicker = new Calendar.DatePicker({
+        trigger:'.calendar',
+        autoRender : true
+      });
+
+      var Grid = Grid,
+      	Store = BUI.Data.Store,
+		columns = [{
+			title:'供应商编码',
+			width:100,
+			sortable:false,
+			dataIndex:'a'
+			//elCls:"right"
+		},{			
+            title : '供应商姓名',
+            width:100,
+            sortable:true,
+            dataIndex :'b',
+            selectable:true,
+            elCls : 'center'           
+		},{
+			title : '供货商来源',
+			width:150,
+			sortable:false,
+            dataIndex : 'c',
+            selectable: true,
+            render:function(value,obj){
+            	return value+':'+obj.id;
+            }           
+		}, 
+		{ title: '渠道ID',width: 100, sortable: true,  dataIndex: 'd',  showTip: true },
+        { title: '供货商地址', width: 100,sortable: true,  dataIndex: 'e'},
+        { title: '联系方式',width: 100, sortable: true,  dataIndex: 'f'},
+        { title: '操作', width: 300, dataIndex: 'g',renderer:function(value,obj){            
+              return '<span class="grid-command">删除</span>';
+        	}
+    	}
+		];
+		var store = new Store({
+			url:'',	//接口地址
+			autoLoad:true,	//自动加载数据
+			params:{		//配置初始请求的参数
+				name:'aaa'
+			},
+			pageSize:10		// 配置分页数目
+		}),
+
+ 		/**
+         * 自动发送的数据格式：
+         *  1. start: 开始记录的起始数，如第 20 条,从0开始
+         *  2. limit : 单页多少条记录
+         *  3. pageIndex : 第几页，同start参数重复，可以选择其中一个使用
+         *
+         * 返回的数据格式：
+         *  {
+         *     "rows" : [{},{}], //数据集合
+         *     "results" : 100, //记录总数
+         *     "hasError" : false, //是否存在错误
+         *     "error" : "" // 仅在 hasError : true 时使用
+         *   }
+         * 
+         */
+
+
+
+
+		/*
+			{
+				"result": true,
+				"rows": [{"a":"123"},{"a":"cdd","b":"edd"},{"a":"1333","c":"eee","d":2}],
+			 	"results" : 20
+			}
+		*/
+
+		grid = new Grid.Grid({
+			render:'#grid',
+			loadMask: true,//加载数据时显示屏蔽层
+			forceFit:true,
+			columns:columns,
+			//items:data,	//静态数据
+			sotre:store,
+			plugins : [Grid.Plugins.CheckSelection,Grid.Plugins.AutoFit], //勾选插件、自适应宽度插件
+			//底部工具栏
+			tbar:{
+				items:[
+					{
+						btnCls:'button button-primary button-small',
+						text:'批量删除',
+						handler:function(){
+							alert("test");
+						}
+					}
+				]
+			},
+
+			bbar:{
+				//items 也可以在此配置
+              // pagingBar:表明包含分页栏
+              pagingBar:true
+			}
+			
+		});
+		grid.render();
+
+		var form = new BUI.Form.HForm({
+			srcNode:'#searchForm'
+		}).render();
+
+		form.on('beforesubmit',function(ev){
+			var obj = form.serializeToObject();
+			obj.start = 0;	//返回第一页
+			store.load(obj);
+			return false;
+		});
+
+    });
+
+	
+
+</script>
+</html>

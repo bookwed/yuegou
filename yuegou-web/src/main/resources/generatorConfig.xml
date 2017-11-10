@@ -34,20 +34,20 @@
 
         <!--数据库连接配置-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.104.59.21:3306/wp?characterEncoding=utf8"
-                        userId="wp"
-                        password="227qtuqgunno">
+                        connectionURL="jdbc:mysql://47.93.0.193:3306/mydb?characterEncoding=utf8"
+                        userId="dong"
+                        password="dongjuantest">
         </jdbcConnection>
 
         <!--model生成路径-->
-        <javaModelGenerator targetPackage="com.wei.model.user" targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
+        <javaModelGenerator targetPackage="com.wei.model.homePage" targetProject="I:/Workspace/yuegou/yuegou-model/src/main/java"/>
 
         <!--xml生成路径-->
-        <sqlMapGenerator targetPackage="com.wei.model.user.mapper"  targetProject="D:/workspace2/git/yuegou/yuegou-model/src/main/java"/>
+        <sqlMapGenerator targetPackage="com.wei.model.homePage.mapper"  targetProject="I:/Workspace/yuegou/yuegou-model/src/main/java"/>
 
         <!--mapper生成路径-->
-        <javaClientGenerator targetPackage="com.wei.dao.user" targetProject="D:/workspace2/git/yuegou/yuegou-dao/src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="com.wei.dao.homePage" targetProject="I:/Workspace/yuegou/yuegou-dao/src/main/java" type="XMLMAPPER" />
 
-        <table tableName="user_info" mapperName="UserInfoMapper"/>
+        <table tableName="movie_download" mapperName="movieDownloadDao"/>
     </context>
 </generatorConfiguration>
