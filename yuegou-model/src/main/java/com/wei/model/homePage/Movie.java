@@ -8,8 +8,7 @@ import javax.persistence.*;
 public class Movie implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     /**
      * 短标题
@@ -84,16 +83,46 @@ public class Movie implements Serializable{
     private String downloadaddress;
 
     /**
+     * 电影类型
+     */
+    @Column(name = "movieType")
+    private String movieType;
+
+    /**
+     * 影评
+     */
+    @Column(name = "movie_comment")
+    private String movieComment;
+
+    /**
+     * 金句
+     */
+    @Column(name = "gold_sentence")
+    private String goldSentence;
+
+    /**
+     * 原版照片
+     */
+    @Column(name = "full_pic")
+    private String fullPic;
+
+    /**
+     * 是否显示 0是 1否
+     */
+    @Column(name = "is_show")
+    private Integer isShow;
+
+    /**
      * @return id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -329,5 +358,87 @@ public class Movie implements Serializable{
      */
     public void setDownloadaddress(String downloadaddress) {
         this.downloadaddress = downloadaddress;
+    }
+
+    public String getMovieType() {
+        return movieType;
+    }
+
+    public void setMovieType(String movieType) {
+        this.movieType = movieType;
+    }
+
+    public enum MOVIEENUM{
+        OSCAR("99","奥斯卡"),
+        DOUBAN9("98","豆瓣9.0"),
+        DOCUMENTARY("97","纪录片"),
+        SERIES("96","系列"),
+        SHORTY("95","短片"),
+        NEWEST("94","最新");
+
+        private String code;
+        private String msg;
+
+        private MOVIEENUM(String code,String msg){
+            this.code = code;
+            this.msg = msg;
+        }
+
+        public static String getName(String code){
+            for (MOVIEENUM m : MOVIEENUM.values()){
+                if(m.getCode().equals(code)){
+                    return m.getMsg();
+                }
+            }
+            return null;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+    }
+
+    public String getMovieComment() {
+        return movieComment;
+    }
+
+    public void setMovieComment(String movieComment) {
+        this.movieComment = movieComment;
+    }
+
+    public String getGoldSentence() {
+        return goldSentence;
+    }
+
+    public void setGoldSentence(String goldSentence) {
+        this.goldSentence = goldSentence;
+    }
+
+    public String getFullPic() {
+        return fullPic;
+    }
+
+    public void setFullPic(String fullPic) {
+        this.fullPic = fullPic;
+    }
+
+    public Integer getIsShow() {
+        return isShow;
+    }
+
+    public void setIsShow(Integer isShow) {
+        this.isShow = isShow;
     }
 }

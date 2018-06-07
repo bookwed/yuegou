@@ -2,7 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>电影详情页</title>
+    <title>${result.fullName}</title>
+    <meta name="keywords" content="${result.shortName}" />
+    <meta name="description" content="${result.plot}" />
     <%@include file="resources.jsp" %>
     <style type="text/css">
         body {
@@ -30,7 +32,7 @@
 
         /* search input field */
         input[type=search] {
-            background: #ededed url(images/search-icon.png) no-repeat 9px center;
+            background: #ededed url("http://www.weierdong.com/wed/images/search-icon.png") no-repeat 9px center;
             border: solid 1px #ccc;
             padding: 5px 10px 5px 32px;
             width: 55px;
@@ -111,10 +113,13 @@
             color: #666;
             float: left;
             width: 780px;
-            height: 200px;
+            /*height: 200px;*/
             word-wrap: break-word;
             overflow:auto;
             margin-top: -6px;
+        }
+        .entry-content #movie_info a {
+            color: #5d9fd0;
         }
         .entry-content h3 {
             margin: 10px 0;
@@ -162,8 +167,8 @@
             clear: both;
         }
         .download-list {
-            background: #000;
-            padding: 15px;
+            /*background: #000;
+            padding: 15px;*/
         }
         /* abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, cite, code, dd, del, details, dfn, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, p, pre, q, samp, section, small, span, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, ul, var, video {
             margin: 0;
@@ -176,13 +181,13 @@
             -webkit-font-smoothing: antialiased;
         } */
         .download-list li {
-            height: 35px;
-            line-height: 35px;
-            border-bottom: 1px solid #000;
+            height: 25px;
+            /*line-height: 35px;*/
+            /*border-bottom: 1px solid #000;*/
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            background: #111;
+            /*background: #111;*/
             padding: 0 15px;
         }
         dl>dd, ul>li {
@@ -231,6 +236,8 @@
         .ali_group a:hover{
             text-decoration: underline;
         }
+
+
     </style>
 </head>
 <body>
@@ -244,7 +251,11 @@
             <div style="width: 990px;padding-bottom: 20px;">
                 <div style="float: left;width: 1200px;overflow: hidden;display: block;">
                     <div id="breadcrumb" style="zoom:1;">
-                        当前位置：WED > 电影 > 纪录片 > 具体影片名
+                        当前位置：WED > 电影
+                        <c:if test="${not empty typeStr}">
+                            > ${typeStr}
+                        </c:if>
+                         > ${result.shortName}
                     </div>
 
                     <div id="detail-001" class="entry" style="padding-bottom: 10px;">
@@ -266,22 +277,36 @@
                                     导演：${result.director}<br>
                                     编剧：${result.screenwriter}<br>
                                     主演：${result.mainactor}<br>
-                                    剧情介绍：${result.plot}
+                                    剧情简介：${result.plot}
                                 </div>
                             </div>
 
                             <h3>下载地址</h3>
-                            <div class="download-list">
-                                <ul>
-                                    <c:forEach items="${downloadList}" var="item" >
-                                        <li>
-                                            <em></em>
-                                            <a href="${item.downloadAddress}">
-                                                    ${item.downloadName}
-                                            </a>
-                                        </li>
-                                    </c:forEach>
-                                </ul>
+                            <%--<a href="<%=basePath%>homepage/downMovie?randomCode=abcdef">测试下载</a>--%>
+                            <c:if test="${empty downloadList}">
+                                &nbsp;&nbsp;抱歉，暂时没有下载资源！
+                            </c:if>
+                            <c:if test="${not empty downloadList}">
+                                <div class="download-list">
+                                    <ul>
+                                        <c:forEach items="${downloadList}" var="item" >
+                                            <li>
+                                                <em></em>
+                                                <a href="<%=basePath%>homepage/downMovie?randomCode=${item.downloadAddress}">
+                                                        ${item.downloadName}
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </c:if>
+                            <h3>影评</h3>
+                            <div id="movieComment" style="float:left;width:980px;word-wrap: break-word;overflow:auto; ">
+                                ${result.movieComment}
+                            </div>
+                            <h3>金句摘抄</h3>
+                            <div id="goldSentence" style="float:left;width:980px;word-wrap: break-word;overflow:auto; ">
+                                ${result.goldSentence}
                             </div>
                         </div>
                     </div>

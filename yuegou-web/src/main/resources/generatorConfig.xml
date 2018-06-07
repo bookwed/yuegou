@@ -48,6 +48,6 @@
         <!--mapper生成路径-->
         <javaClientGenerator targetPackage="com.wei.dao.homePage" targetProject="I:/Workspace/yuegou/yuegou-dao/src/main/java" type="XMLMAPPER" />
 
-        <table tableName="movie_download" mapperName="movieDownloadDao"/>
+        <table tableName="talk" mapperName="talkDao"/>
     </context>
 </generatorConfiguration>

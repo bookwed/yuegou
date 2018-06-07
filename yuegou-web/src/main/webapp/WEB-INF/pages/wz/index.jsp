@@ -3,7 +3,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>首页</title>
+    <title>东家小站_电影下载_电视剧下载_kindle电子书下载</title>
+    <meta name="keywords" content="奥斯卡电影,经典电影,纪录片,kindle电子书,电影,东家小站,电影天堂,BT下载" />
+    <meta name="description" content="东家小站为您提供最优质的高清电影BT种子下载、电视剧BT种子下载以及适合Kindle阅读的电子书下载，欢迎您来体验。" />
     <%@include file="resources.jsp" %>
 
     <style type="text/css">
@@ -32,7 +34,7 @@
 
         /* search input field */
         input[type=search] {
-            background: #ededed url(images/search-icon.png) no-repeat 9px center;
+            background: #ededed url("http://www.weierdong.com/wed/images/search-icon.png") no-repeat 9px center;
             border: solid 1px #ccc;
             padding: 5px 10px 5px 32px;
             width: 55px;
@@ -99,9 +101,9 @@
                             </a>
                             <div class="fh5co-text">
                                 <h2 style="color: #f54c53;font-family: 'Hiragino Sans GB','Microsoft Yahei',SimHei,SimSun; font-size: 18px;font-weight: 300;margin: 0 0 10px 0;">
-                                    <center><a href="<%=basePath%>/homepage/getMovieById?id=${item.id}" target="_blank"><b>${item.shortName}</b></a></center>
+                                    <center><a href="<%=basePath%>/homepage/movieId/${item.id}" target="_blank"><b>${item.shortName}</b></a></center>
                                 </h2>
-                                <p style="font-size: 14px; font-family: 'Hiragino Sans GB','Microsoft Yahei',SimHei,SimSun "><a href="<%=basePath%>/homepage/getMovieById?id=${item.id}" target="_blank" style="color: #777;">${item.plot}</a></p>
+                                <p style="font-size: 14px; font-family: 'Hiragino Sans GB','Microsoft Yahei',SimHei,SimSun "><a href="<%=basePath%>/homepage/movieId/${item.id}" target="_blank" style="color: #777;">${item.plot}</a></p>
                             </div>
                         </div>
                     </c:forEach>

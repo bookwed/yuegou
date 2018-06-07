@@ -13,7 +13,7 @@ public class MovieDownload {
      * 电影id
      */
     @Column(name = "movie_id")
-    private Integer movieId;
+    private String movieId;
 
     /**
      * 排序
@@ -55,7 +55,7 @@ public class MovieDownload {
      *
      * @return movie_id - 电影id
      */
-    public Integer getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
@@ -64,7 +64,7 @@ public class MovieDownload {
      *
      * @param movieId 电影id
      */
-    public void setMovieId(Integer movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 

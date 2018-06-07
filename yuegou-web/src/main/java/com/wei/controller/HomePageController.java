@@ -2,21 +2,25 @@ package com.wei.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
-import com.wei.model.homePage.Movie;
-import com.wei.model.homePage.MovieDownload;
-import com.wei.model.homePage.MovieQuery;
+import com.wei.model.homePage.*;
+import com.wei.service.homePage.ContactMeService;
 import com.wei.service.homePage.MovieService;
+import com.wei.service.homePage.TalkService;
+import com.wei.util.ClasspathPropertiesUtil;
+import com.wei.util.CommonUtils;
+import com.wei.util.MD5Util;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -26,8 +30,18 @@ import java.util.*;
 @RequestMapping(value = "/homepage/")
 public class HomePageController {
 
+    Logger logger = Logger.getLogger(HomePageController.class);
+
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private ContactMeService contactMeService;
+
+    @Autowired
+    private TalkService talkService;
+
+    private static String MY_DOMAIN = ClasspathPropertiesUtil.getInstance().get("my_domain", String.class);
 
     /**
      * 暂时不用
@@ -55,18 +69,14 @@ public class HomePageController {
         return "";
     }
 
-    public static void main(String[] args) {
-        System.out.printf("asdfghi".substring(0,3));
-    }
-
     /**
      * 首页电影前3条
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "getMoviesTop3")
-    public ModelAndView getMoviesTop3(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "index")
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response){
         try{
             List<Movie> movieList = movieService.selectMovieTop3(); //TODO 此处只查询3条记录，图 片路径是拼接之后的完整路径
             if(!CollectionUtils.isEmpty(movieList)){
@@ -74,6 +84,7 @@ public class HomePageController {
                     if(movie.getPlot().length() > 45){
                         movie.setPlot(movie.getPlot().substring(0,45)+"...");
                     }
+                    movie.setPic(MY_DOMAIN+movie.getPic());
                 }
             }
 
@@ -93,28 +104,25 @@ public class HomePageController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "getMovies")
-    public ModelAndView getMovies(HttpServletRequest request, HttpServletResponse response ,MovieQuery movieQuery){
+    @RequestMapping(value = "movies")
+    public ModelAndView movies(HttpServletRequest request, HttpServletResponse response , MovieQuery movieQuery){
         try{
-
-            /*String pageNum = request.getParameter("pageNum")==null?"1":request.getParameter("pageNum");
-            String pageSize = request.getParameter("pageSize")==null?"2":request.getParameter("pageSize");
-            //todo 设置参数
-            PageInfo<Movie> pageInfo = movieService.selectMovieAll(Integer.parseInt(pageNum),Integer.parseInt(pageSize));*/
-
-            String title = request.getParameter("title");
-            System.out.printf("title===" + title);
             PageInfo<Movie> pageInfo = movieService.selectMovieAll(movieQuery);
-
-
-            List<Movie> movieList = pageInfo.getList();
-
             ModelAndView productView = new ModelAndView();
+            if(!CollectionUtils.isEmpty(pageInfo.getList())){
+                for(Movie movie:pageInfo.getList()){
+                    if(movie.getPlot().length() > 200){
+                        movie.setPlot(movie.getPlot().substring(0,200)+"......");
+                    }
+                    movie.setPic(MY_DOMAIN+movie.getPic());
+                }
+            }
             productView.addObject("results", pageInfo);
+            productView.addObject("typeStr",Movie.MOVIEENUM.getName(movieQuery.getType()));
             productView.setViewName("wz/movieList");
             return productView;
         }catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
     }
@@ -125,52 +133,264 @@ public class HomePageController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "getMovieById")
-    public ModelAndView getMovieById(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "movieId/{id}")
+    public ModelAndView movieId(HttpServletRequest request, HttpServletResponse response,@PathVariable String id){
         try{
-            String id = request.getParameter("id");
-            System.out.printf("id:"+id);
-
-            /*Map map = new HashMap();
-            map.put("id",1);
-            map.put("title","[牺牲复活者][HD-1080P-MKV][韩语中字][1.84GB][2017]");
-            map.put("img","http://i2.cfimg.com/509344/334fd24497fe1048.jpg");
-            map.put("plot","电影改编自小说《完整的审判》，是一部奇幻惊悚电影。该片讲述的是全世界已经死去的人突然复活，去找杀害自己的人复仇的故事。其中就有一位母亲时隔七年死而复生，去找自己当检察官的儿子复仇，试图杀掉自己的儿子。...");
-            map.put("douban","https://movie.douban.com/subject/26386034/");
-            map.put("director","大卫");
-            map.put("screenwriter","库尔特·约恩斯塔德");    //todo 多个
-            map.put("mainActor","查理兹·塞隆 / 詹姆斯·麦卡沃伊");    //todo 主演
-            map.put("updateTime",new Date());
-            map.put("publishTime",new Date());
-
-            List<Map<String,Object>> downloadList = new ArrayList<Map<String, Object>>();
-            Map<String,Object> map1 = new HashMap<String, Object>();
-            map1.put("downloadAddrx","ed2k://|file|罪恶黑名单.The.Blacklist.S05E06.中英字幕.HDTVrip.720P-人人影视.mp4|520391325|c944727eb739f386183b36fc37ad22ee|h=3qpntcbjxxejbokhn6u34cmc3p5vt3z5|/");
-            map1.put("downloadName","《罪恶黑名单 [第五季]》 1280p BD高清版 第1集");
-            Map<String,Object> map2 = new HashMap<String, Object>();
-            map2.put("downloadAddrx","ed2k://|file|罪恶黑名单.The.Blacklist.S05E06.中英字幕.HDTVrip.720P-人人影视.mp4|520391325|c944727eb739f386183b36fc37ad22ee|h=3qpntcbjxxejbokhn6u34cmc3p5vt3z5|/");
-            map2.put("downloadName","《罪恶黑名单 [第五季]》 1280p BD高清版 第2集");
-
-            downloadList.add(map1);
-            downloadList.add(map2);
-            map.put("downloadList",downloadList);*/
+            //String id = request.getParameter("id");
 
             //电影基本信息
-            Movie movie = movieService.getMovieById(Integer.valueOf(id));
+            Movie movie = movieService.getMovieById(id);
+            movie.setPic(MY_DOMAIN+movie.getPic());
 
             //下载地址
-            List<MovieDownload> downloads = movieService.selectMovieDownLoadAll(Integer.valueOf(id));
+            List<MovieDownload> downloads = movieService.selectMovieDownLoadAll(id);
 
             ModelAndView productView = new ModelAndView();
             productView.addObject("result", movie);
             productView.addObject("downloadList",downloads);
-
+            productView.addObject("typeStr",Movie.MOVIEENUM.getName(movie.getMovieType()));
             productView.setViewName("wz/movieDetail");
             return productView;
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * 跳转到“联系我”
+     * @return
+     */
+    @RequestMapping(value = "toContactMe")
+    public String toContactMe(){
+        return "wz/contactMe";
+    }
+
+    @RequestMapping(value = "sendMessage",method = RequestMethod.POST)
+    @ResponseBody
+    public String sendMessage(HttpServletRequest request, HttpServletResponse response ,Contactme contactme){
+        try{
+            Map map = new HashMap();
+            ObjectMapper mapper = new ObjectMapper(); //转换器
+            if(StringUtils.isEmpty(contactme.getEmail())){
+                map.put("id",0);
+                map.put("result","邮件地址不能为空");
+                String json = mapper.writeValueAsString(map);
+                return json;
+            }
+            if(StringUtils.isEmpty(contactme.getContent())){
+                map.put("id",0);
+                map.put("result","留言内容不能为空");
+                String json = mapper.writeValueAsString(map);
+                return json;
+            }
+            int id = contactMeService.add(contactme);
+            map.put("id",id);
+            map.put("result","留言成功");
+            String json = mapper.writeValueAsString(map);
+            return json;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 根据随机码进行下载
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "downMovie")
+    public String downMovie(HttpServletRequest request, HttpServletResponse response,String randomCode){
+        InputStream inputStream=null;
+        OutputStream outputStream=null;
+        try{
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("application/x-bittorrent;charset=utf-8");
+            //todo 根据randomCode找到详情信息给filename赋值；code的生成规则：wed+名称+10位随机码，然后md5加密
+            String fileName = "";
+            MovieDownload download = movieService.selectMovieDownloadByAddressCode(randomCode);
+            if(null != download){
+                fileName = download.getDownloadName();
+            }
+            fileName = fileName+".torrent";
+
+            //解决中文文件名显示问题
+            response.addHeader("Content-Disposition", "attachment;filename="+new String(fileName.getBytes("gb2312"),"ISO8859-1"));
+
+            String path =ClasspathPropertiesUtil.getInstance().get("movie_path", String.class);
+            byte[] bytes = new byte[1024];
+
+            File file=new File(path,fileName);
+            if(file.exists()){
+                inputStream = new FileInputStream(file);
+                outputStream = response.getOutputStream();
+                int length = 0;
+                while ((length = inputStream.read(bytes)) != -1) {
+                    outputStream.write(bytes, 0, length);
+                }
+                outputStream.flush();
+            }else{
+                logger.error("-------downMovie-----所下载的文件不存在");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            //关闭输入输出流
+            if(inputStream!=null) {
+                try{
+                    inputStream.close();
+                }catch (Exception e){
+                }
+            }
+            if(outputStream!=null) {
+                try{
+                    outputStream.close();
+                }catch (Exception e){
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 跳转到“新增页”
+     * @return
+     */
+    @RequestMapping(value = "toAdd")
+    public String toAdd(HttpServletRequest request){
+        String password = request.getParameter("password");
+        if(password.equals("xusujuan521")){
+            return "wz/add";
+        }else{
+            return "wz/error";
+        }
+    }
+
+    /**
+     * 新增电影
+     * @param request
+     * @param response
+     * @param picFile
+     * @param movie
+     * @return
+     */
+    @RequestMapping("add")
+    @ResponseBody
+    public String add(HttpServletRequest request, HttpServletResponse response,@RequestParam("picFile") MultipartFile picFile,Movie movie){
+        String picPath = ClasspathPropertiesUtil.getInstance().get("pic_path", String.class);
+        File saveFile = new File(picPath+picFile.getOriginalFilename());
+
+        String my_domain = ClasspathPropertiesUtil.getInstance().get("my_domain", String.class);
+
+        try{
+            //上传
+            picFile.transferTo(saveFile);
+
+            //保存
+            movie.setPic("/wed/images/"+picFile.getOriginalFilename());
+
+            String id = movieService.insert(movie);
+            Map map = new HashMap();
+            ObjectMapper mapper = new ObjectMapper(); //转换器
+            map.put("id",id);
+            map.put("result","保存成功");
+            String json = mapper.writeValueAsString(map);
+            return json;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 跳转到“talk新增页”
+     * @return
+     */
+    @RequestMapping(value = "toAddTalk")
+    public String toAddTalk(HttpServletRequest request){
+        String password = request.getParameter("password");
+        if(password.equals("xusujuan521")){
+            return "wz/addTalk";
+        }else{
+            return "wz/error";
+        }
+    }
+
+    /**
+     * 新增talk
+     * @param request
+     * @param response
+     * @param talk
+     * @return
+     */
+    @RequestMapping("addTalk")
+    @ResponseBody
+    public String addTalk(HttpServletRequest request, HttpServletResponse response,Talk talk){
+        try {
+            String id = talkService.add(talk);
+            Map map = new HashMap();
+            ObjectMapper mapper = new ObjectMapper(); //转换器
+            map.put("id",id);
+            map.put("result","保存成功");
+            String json = mapper.writeValueAsString(map);
+            return json;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "talks")
+    public ModelAndView talks(HttpServletRequest request, HttpServletResponse response,TalkQuery talkQuery){
+        try{
+            PageInfo<Talk> pageInfo = talkService.selectTalkAll(talkQuery);
+            ModelAndView productView = new ModelAndView();
+
+            productView.addObject("results", pageInfo);
+            productView.addObject("typeStr",Talk.TALKENUM.getName(talkQuery.getType()));
+            productView.setViewName("wz/talkList");
+            return productView;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "talkId/{id}")
+    public ModelAndView talkId(HttpServletRequest request, HttpServletResponse response,@PathVariable String id){
+        try{
+            //文章基本信息
+            Talk talk = talkService.getTalkById(id);
+
+            ModelAndView productView = new ModelAndView();
+            productView.addObject("result", talk);
+            productView.addObject("typeStr", Talk.TALKENUM.getName(talk.getType()));
+            productView.setViewName("wz/talkDetail");
+            return productView;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) throws Exception{
+        //生成下载code
+        String tep = "wed";
+        String fileName = "[勇敢的心][Braveheart (1995)][BD-720P-MP4][中英双字][豆瓣8.8分][3.0GB].mp4";
+        String random = CommonUtils.getRandomString(20);    //10位随机码
+        System.out.println(MD5Util.md5Encode(tep+fileName+random));
+
+        /*ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        System.out.println("current:"+classLoader);
+        System.out.println("current:"+classLoader.getParent());
+        System.out.println("current:"+classLoader.getParent().getParent());*/
+    }
 }

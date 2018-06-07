@@ -5,7 +5,7 @@ package com.wei.model.commons;
  */
 public class Page {
     private int pageNum = 1;
-    private int pageSize = 2;
+    private int pageSize = 10;
 
     public int getPageNum() {
         return pageNum;

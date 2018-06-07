@@ -125,6 +125,7 @@ h1, h2, h3, h4, h5, h6, figure {
   padding: 0;
   text-transform: uppercase;
   font-weight: bold;
+  margin-top:-10px;
 }
 .gtco-nav #gtco-logo em {
   color: #f54c53;
@@ -873,7 +874,7 @@ form label {
 }
 
 #gtco-products {
-  background: #61879a;
+  /*background: #61879a;*/
 }
 #gtco-products .item img {
   -webkit-border-radius: 7px;

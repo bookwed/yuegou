@@ -3,11 +3,13 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>电影列表页</title>
+    <title>电影、电视剧、纪录片下载_BT种子下载_东家小站</title>
+    <meta name="keywords" content="奥斯卡电影,豆瓣9.0,纪录片,东家小站" />
+    <meta name="description" content="东家小站为您提供最优质的奥斯卡电影、豆瓣评分9.0以及优质纪录片BT种子下载，欢迎您来体验。" />
     <%@include file="resources.jsp" %>
     <!--分页 -->
-    <script type="text/javascript" src="<%=basePath%>ft5_69_splash/src/kkpager.js"></script>
-    <link rel="stylesheet" type="text/css" href="<%=basePath %>/ft5_69_splash/src/kkpager_orange.css" />
+    <script type="text/javascript" src="<%=basePath%>wed/src/kkpager.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=basePath %>/wed/src/kkpager_orange.css" />
     <style type="text/css">
         body {
             font-size: 14px;
@@ -34,7 +36,7 @@
 
         /* search input field */
         input[type=search] {
-            background: #ededed url(images/search-icon.png) no-repeat 9px center;
+            background: #ededed url("http://www.weierdong.com/wed/images/search-icon.png") no-repeat 9px center;
             border: solid 1px #ccc;
             padding: 5px 10px 5px 32px;
             width: 55px;
@@ -182,52 +184,54 @@
                     <div class="wrapper clearfix">
                         <dl class="menu-movie">
                             <dd>
-                                <a href="list.html#foo" title="动作片迅雷下载">动作</a>
-                                <a href="" title="科幻片迅雷下载">科幻</a>
-                                <a href="" title="恐怖片迅雷下载">恐怖</a>
-                                <a href="" title="喜剧片迅雷下载">喜剧</a>
-                                <a href="" title="战争片迅雷下载">战争</a>
-                                <a href="" title="悬疑片迅雷下载">悬疑</a>
-                                <a href="" title="惊悚片迅雷下载">惊悚</a>
-                                <a href="" title="灾难片迅雷下载">灾难</a>
-                                <a href="" title="奇幻片迅雷下载">奇幻</a>
-                                <a href="" title="动画片迅雷下载">动漫</a>
-                                <a href="" title="爱情片迅雷下载">爱情</a>
-                                <a href="" title="犯罪片迅雷下载">犯罪</a>
+                                <a href="<%=basePath%>homepage/movies?type=99" title="奥斯卡迅雷下载--每周更新两部">奥斯卡</a>
+                                <a href="<%=basePath%>homepage/movies?type=98" title="豆瓣9.0迅雷下载--不定期更新">豆瓣9.0</a>
+                                <a href="<%=basePath%>homepage/movies?type=97" title="纪录片迅雷下载--不定期更新">纪录片</a>
+                                <a href="<%=basePath%>homepage/movies?type=96" title="系列迅雷下载--不定期更新">系列</a>
+                                <a href="<%=basePath%>homepage/movies?type=95" title="短片迅雷下载--不定期更新">短片</a>
+                                <a href="<%=basePath%>homepage/movies?type=94" title="最新迅雷下载--不定期更新">最新</a>
                             </dd>
                         </dl>
                     </div>
                 </div>
 
-
                 <div id="breadcrumb" style="zoom:1;">
-                    当前位置：WED > 电影 > 纪录片
+                    当前位置：WED > 电影
+                    <c:if test="${not empty typeStr}">
+                        > ${typeStr}
+                    </c:if>
                 </div>
+
                 <div class="post-grid clearfix">
                     <!-- 数据展示-->
+                    <c:if test="${empty results.list}">
+                        <div id="post-97" class="post clearfix">
+                            没有查到符合条件的记录，请换换别的关键词试试。
+                        </div>
+                    </c:if>
+
                     <c:forEach items="${results.list}" var="item">
                         <div id="post-97" class="post clearfix">
-                            <a class="entry-thumb" href="detail.html" title="${item.fullName}">
+                            <a class="entry-thumb" href="<%=basePath%>homepage/movieId/${item.id}" title="${item.fullName}">
                                 <img src="${item.pic}" height="130" width="100" >
                             </a>
                             <h3 class="entry-title">
-                                <a href="<%=basePath%>/homepage/getMovieById?id=${item.id}" style="color: #999;" title="${item.fullName}" target="_blank">${item.fullName}</a>
+                                <a href="<%=basePath%>homepage/movieId/${item.id}" style="color: #999;" title="${item.fullName}" target="_blank">${item.fullName}</a>
                             </h3>
                             <div class="entry-meta">
                                 <span class="">最后更新：<fmt:formatDate value="${item.updatetime}" pattern="yyyy年MM月dd日"/></span>
                                 <!-- <span>|</span>
-                                <span><a href="#">2 条评论</a></span> -->
+                                <span><a href="#">2 条影评</a></span> -->
                             </div>
                             <div>
                                 <p>${item.plot}</p>
                             </div>
                         </div>
                     </c:forEach>
-
                     <!--分页-->
                     <div id="kkpager"></div>
-
                 </div>
+
             </div>
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
@@ -248,7 +252,7 @@
         total : totalPage,  //总页数
         totalRecords : totalRecords,  //总数据条数
         mode : 'link', //可选，默认就是link
-        hrefFormer : 'getMovies',//链接前部
+        hrefFormer : 'movies',//链接前部
         hrefLatter : '',//链接尾部
         //链接算法
         getLink : function(n){

@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="/user/uploadFile" method="post" enctype="multipart/form-data">
+    <form action="/files/uploadFile2" method="post" enctype="multipart/form-data">
         <input type="file" name="f">
         <input type="text" name="content">
         <input type="submit" value="上传">

@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface MovieService {
 
+    String insert(Movie movie);
+
     /**
      * 电影，前3条
      * @return
@@ -28,12 +30,19 @@ public interface MovieService {
      * 根据id获取电影对象
      * @return
      */
-    Movie getMovieById(Integer id);
+    Movie getMovieById(String id);
 
     /**
      * 根据电影id获取所有下载信息
      * @param movieId
      * @return
      */
-    List<MovieDownload> selectMovieDownLoadAll(Integer movieId);
+    List<MovieDownload> selectMovieDownLoadAll(String movieId);
+
+    /**
+     * 根据addressCode获取下载信息
+     * @param addressCode
+     * @return
+     */
+    MovieDownload selectMovieDownloadByAddressCode(String addressCode);
 }

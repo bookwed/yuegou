@@ -144,9 +144,9 @@ public class CommonFileController {
         return "upload/upload";
     }
 
-    @RequestMapping(value = "uploadFile")
+    @RequestMapping(value = "uploadFile2")
     @ResponseBody
-    public Response uploadFile(HttpServletRequest request,HttpServletResponse response){
+    public Response uploadFile2(HttpServletRequest request,HttpServletResponse response){
         UploadDto dto = UploadUtils.uploadFile(request);
         try {
             //保存到数据库

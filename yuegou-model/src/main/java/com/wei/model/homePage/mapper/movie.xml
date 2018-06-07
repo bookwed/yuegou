@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wei.dao.homePage.MovieDao">
   <resultMap id="BaseResultMap" type="com.wei.model.homePage.Movie">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="short_name" jdbcType="VARCHAR" property="shortName" />
     <result column="full_name" jdbcType="VARCHAR" property="fullName" />
     <result column="director" jdbcType="VARCHAR" property="director" />
@@ -10,17 +10,43 @@
     <result column="mainActor" jdbcType="VARCHAR" property="mainactor" />
     <result column="oneword" jdbcType="VARCHAR" property="oneword" />
     <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="full_pic" jdbcType="VARCHAR" property="fullPic" />
     <result column="publishTime" jdbcType="TIMESTAMP" property="publishtime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
     <result column="douban" jdbcType="VARCHAR" property="douban" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="plot" jdbcType="LONGVARCHAR" property="plot" />
     <result column="downloadAddress" jdbcType="LONGVARCHAR" property="downloadaddress" />
+    <result column="movieType" jdbcType="VARCHAR" property="movieType" />
+    <result column="movie_comment" jdbcType="VARCHAR" property="movieComment" />
+    <result column="gold_sentence" jdbcType="VARCHAR" property="goldSentence" />
+    <result column="is_show" jdbcType="INTEGER" property="isShow" />
   </resultMap>
 
   <select id="top3" parameterType="String" resultMap="BaseResultMap">
     select * from movie
+    where is_show = 0
     order by createTime DESC
     limit 3
   </select>
+
+  <select id="selectAllByPage" parameterType="com.wei.model.homePage.MovieQuery" resultMap="BaseResultMap">
+    select * from movie
+      <![CDATA[
+      where id <=
+      ]]>
+      (
+        select id from movie
+        order by id desc limit #{movieQuery.startNum},1
+      )
+      <if test="movieQuery.title != null">
+        and (short_name like CONCAT(CONCAT('%',#{movieQuery.title}),'%') or full_name like CONCAT(CONCAT('%',#{movieQuery.title}),'%'))
+      </if>
+      <if test="movieQuery.type != null">
+        and movieType = #{movieQuery.type}
+      </if>
+     order by id desc
+     limit #{movieQuery.pageSize}
+  </select>
+
 </mapper>

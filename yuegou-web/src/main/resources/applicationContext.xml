@@ -87,8 +87,7 @@
 
     <!-- static resources mapping -->
     <!-- <mvc:resources location="/WEB-INF/assets/" mapping="/assets/**" /> -->
-    <!--<mvc:resources location="/assets/" mapping="/assets/**" />  &lt;!&ndash; assets在webapp目录下&ndash;&gt;-->
-
+    <!--<mvc:resources location="/movies/" mapping="/movies/**" />  &lt;!&ndash; assets在webapp目录下&ndash;&gt;-->
     <!-- 如何请求到html页面 -->
     <!-- <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         使用UrlBasedViewResolver的时候必须指定属性viewClass，表示解析成哪种视图，一般使用较多的就是InternalResourceView，利用它来展现jsp，但是当我们使用JSTL的时候我们必须使用JstlView

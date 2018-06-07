@@ -1,5 +1,7 @@
 <html>
 <body>
-<h2>Hello World!sdfasfdsa</h2>
+<%
+    request.getRequestDispatcher("homepage/index").forward(request,response);
+%>
 </body>
 </html>
